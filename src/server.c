@@ -4009,6 +4009,7 @@ int main(int argc, char **argv) {
     struct timeval tv;
     int j;
 
+// 如果argc=3, 并且argv里面放着["test", "某个数据结构"], 就调用对应的teset方法
 #ifdef REDIS_TEST
     if (argc == 3 && !strcasecmp(argv[1], "test")) {
         if (!strcasecmp(argv[2], "ziplist")) {
@@ -4035,6 +4036,7 @@ int main(int argc, char **argv) {
     }
 #endif
 
+
     /* We need to initialize our libraries, and the server configuration. */
 #ifdef INIT_SETPROCTITLE_REPLACEMENT
     spt_init(argc, argv);
@@ -4049,7 +4051,7 @@ int main(int argc, char **argv) {
     getRandomHexChars(hashseed,sizeof(hashseed));
     dictSetHashFunctionSeed((uint8_t*)hashseed);
     server.sentinel_mode = checkForSentinelMode(argc,argv);
-    initServerConfig();
+    initServerConfig();         // 开始初始化.
     moduleInitModulesSystem();
 
     /* Store the executable path and arguments in a safe place in order
